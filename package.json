@@ -1,0 +1,17 @@
+{
+  "name": "ball-dibs",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Call dibs on the shared ball. Liquid-glass PWA for two.",
+  "type": "module",
+  "engines": { "node": "22.x" },
+  "scripts": {
+    "dev": "node --env-file=.env scripts/dev-server.js",
+    "test": "node --test \"test/*.test.js\"",
+    "icons": "python3 scripts/make-icons.py",
+    "gen-env": "node scripts/gen-env.mjs"
+  },
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}
