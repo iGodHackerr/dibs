@@ -1,6 +1,7 @@
 // The one place that decides whether a week can be claimed. Pure functions -> easy to test.
 import { MAX_WEEKS_AHEAD, PER_MONTH } from './config.js';
 import { addDays, diffDays, monthOf, nice, niceMonth, weekEndOf, weekStartOf } from './dates.js';
+import { blockingSession } from './sessions.js';
 
 /**
  * @param {object} p
@@ -9,10 +10,12 @@ import { addDays, diffDays, monthOf, nice, niceMonth, weekEndOf, weekStartOf } f
  * @param {Record<string, {user:string, weekStart:string}>} p.dibsByWeek  all active dibs, keyed by weekStart
  * @param {string} p.me          the viewer
  * @param {string} p.openFrom    first Friday dibs are allowed
+ * @param {Record<string, object>} [p.sessionsByDate]  play sessions keyed by date (an unfinished session by the other person blocks the week)
+ * @param {number} [p.nowIndex]  dayIdx(today) * 1440 + minute-of-day, to tell finished sessions from live ones
  * @returns {{status:string, owner?:string, past:boolean, canBook:boolean, canRelease:boolean, reason?:string, opensOn?:string}}
- *   status: past | mine | theirs | locked | far | quota | open
+ *   status: past | mine | theirs | locked | far | quota | busy | open
  */
-export function evaluateWeek({ weekStart, today, dibsByWeek, me, openFrom }) {
+export function evaluateWeek({ weekStart, today, dibsByWeek, me, openFrom, sessionsByDate = {}, nowIndex = 0 }) {
   const weekEnd = weekEndOf(weekStart);
   const currentWeek = weekStartOf(today);
   const past = weekEnd < today;
@@ -54,6 +57,14 @@ export function evaluateWeek({ weekStart, today, dibsByWeek, me, openFrom }) {
     return {
       status: 'quota', past: false, canBook: false, canRelease: false,
       reason: `You've used both of your ${niceMonth(month)} dibs. Fair is fair, so someone else gets a turn.`,
+    };
+  }
+
+  const blocker = blockingSession({ weekStart, sessionsByDate, me, nowIndex });
+  if (blocker) {
+    return {
+      status: 'busy', past: false, canBook: false, canRelease: false,
+      reason: `${blocker.user} has a session on ${nice(blocker.date)}, so this week can't be claimed. Ask them to cancel it, or pick another week.`,
     };
   }
 

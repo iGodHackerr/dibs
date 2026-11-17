@@ -17,6 +17,14 @@ export const dayNum = (s) => Number(s.slice(8));
 export const monthName = (ym) => MONTH[Number(ym.slice(5)) - 1];
 export const year = (ym) => ym.slice(0, 4);
 
+/* ── clock time (minutes since local midnight) ── */
+export const dayIdx = (s) => Math.round(parse(s) / DAY);
+export const parseHM = (s) => { const m = /^(\d\d):(\d\d)$/.exec(s || ''); return m ? Number(m[1]) * 60 + Number(m[2]) : 0; };
+export const toHM = (min) => `${String(Math.floor(min / 60) % 24).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}`;
+export const clock12 = (min) => { const h = Math.floor(min / 60) % 24; return `${h % 12 || 12}:${String(min % 60).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`; };
+export const longDay = (s) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dow(s)];
+
+
 export function addMonths(ym, n) {
   const [y, m] = ym.split('-').map(Number);
   const d = new Date(Date.UTC(y, m - 1 + n, 1));

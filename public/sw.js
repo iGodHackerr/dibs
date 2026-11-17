@@ -1,8 +1,9 @@
 // Service worker: offline app shell + web-push notifications.
-const CACHE = 'dibs-v2';
+const CACHE = 'dibs-v3';
 const SHELL = [
   '/', '/css/app.css', '/manifest.webmanifest',
-  '/js/app.js', '/js/api.js', '/js/dates.js', '/js/icons.js', '/js/push.js', '/js/ui.js', '/js/theme.js',
+  '/js/app.js', '/js/api.js', '/js/dates.js', '/js/icons.js', '/js/push.js', '/js/ui.js', '/js/theme.js', '/js/wheel.js',
+  '/img/grain.png',
   '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png', '/icons/favicon-32.png',
 ];
 

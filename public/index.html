@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Ball Dibs</title>
   <meta name="description" content="Call dibs on the shared ball. Fair play for two.">
-  <meta name="theme-color" content="#060914" media="(prefers-color-scheme: dark)">
-  <meta name="theme-color" content="#eef1ff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b0c11" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#eceef4" media="(prefers-color-scheme: light)">
   <meta name="color-scheme" content="dark light">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
@@ -20,19 +20,7 @@
   <link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-  <!-- shared gradients for the ball illustration -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <radialGradient id="g-ball" cx="34%" cy="28%" r="82%">
-        <stop offset="0" stop-color="#ffc590"/><stop offset=".34" stop-color="#ff8a3d"/><stop offset="1" stop-color="#b3410b"/>
-      </radialGradient>
-      <radialGradient id="g-rim" cx="50%" cy="50%" r="50%">
-        <stop offset=".72" stop-color="#7fc2ff" stop-opacity="0"/><stop offset="1" stop-color="#7fc2ff" stop-opacity=".5"/>
-      </radialGradient>
-    </defs>
-  </svg>
-
-  <div class="bg" aria-hidden="true"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><i class="orb o4"></i></div>
+  <div class="bg" aria-hidden="true"></div>
 
   <div id="root"></div>
   <div id="toasts" aria-live="polite"></div>

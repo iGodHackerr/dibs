@@ -23,6 +23,7 @@ const P = {
   shield: '<path d="M12 3 5 5.8v5.6c0 4.3 2.9 7.7 7 9.2 4.1-1.5 7-4.9 7-9.2V5.8L12 3Z"/><path d="m9 12 2.2 2.2L15.4 10"/>',
   sparkle: '<path d="M12 3.5 13.8 9l5.7 1.8-5.7 1.8L12 18l-1.8-5.4L4.5 10.8 10.2 9 12 3.5Z"/>',
   hourglass: '<path d="M7 3.5h10M7 20.5h10M8 3.5c0 4 4 5 4 8.5s-4 4.5-4 8.5M16 3.5c0 4-4 5-4 8.5s4 4.5 4 8.5"/>',
+  play: '<path d="M8.2 5.6v12.8a1 1 0 0 0 1.5.9l10.2-6.4a1 1 0 0 0 0-1.7L9.7 4.700a1 1 0 0 0-1.500.9Z"/>',
   wave: '<path d="M7.5 11.5V6a1.5 1.5 0 0 1 3 0v4.5M10.5 10V4.5a1.5 1.5 0 0 1 3 0V10M13.5 10V5.5a1.5 1.5 0 0 1 3 0V13M16.5 9.5a1.5 1.5 0 0 1 3 0v4c0 4.2-2.8 7-6.700 7-2.600 0-4.100-1-5.500-3l-2.700-4a1.500 1.500 0 0 1 2.400-1.800l1.500 1.800"/>',
 };
 
@@ -31,11 +32,14 @@ export const icon = (name, attrs = '') =>
 
 export const dropFilled = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.8s6.4 6.6 6.4 11.4a6.4 6.4 0 0 1-12.800 0C5.600 9.400 12 2.800 12 2.800Z"/></svg>';
 
-export const ball = (cls = 'ball') => `<svg class="${cls}" viewBox="0 0 100 100" aria-hidden="true">
-  <circle cx="50" cy="50" r="46" fill="url(#g-ball)"/>
-  <g fill="none" stroke="#5a2208" stroke-opacity=".72" stroke-width="2.4" stroke-linecap="round">
-    <path d="M50 4v92M4 50h92"/><path d="M21 15c13 17 13 53 0 70M79 15c-13 17-13 53 0 70"/>
+/**
+ * The Claude Code mascot, drawn on the same 16 x 10 grid as the app icon (see scripts/make-icons.py).
+ * `.eye` blinks; the animation lives in app.css.
+ */
+export const mascot = (cls = 'mascot') => `<svg class="${cls}" viewBox="0 0 16 10" shape-rendering="crispEdges" aria-hidden="true">
+  <g fill="#d97757">
+    <rect x="2" y="0" width="12" height="8"/><rect x="0" y="4" width="2" height="2"/><rect x="14" y="4" width="2" height="2"/>
+    <rect x="3" y="8" width="1" height="2"/><rect x="5" y="8" width="1" height="2"/><rect x="10" y="8" width="1" height="2"/><rect x="12" y="8" width="1" height="2"/>
   </g>
-  <circle cx="50" cy="50" r="46" fill="url(#g-rim)"/>
-  <ellipse cx="35" cy="26" rx="15" ry="8.5" fill="#fff" opacity=".42" transform="rotate(-28 35 26)"/>
+  <g class="eyes" fill="#18120f"><rect class="eye" x="4" y="2" width="1" height="2"/><rect class="eye" x="11" y="2" width="1" height="2"/></g>
 </svg>`;

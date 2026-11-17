@@ -5,6 +5,8 @@ export const USERS = ['iGodHackerr', 'KingOfWord'];
 export const PER_MONTH = 2;        // dibs each person may hold per calendar month
 export const MAX_WEEKS_AHEAD = 4;  // how far into the future dibs can be called
 export const SESSION_DAYS = 90;    // how long a login lasts
+export const SESSION_HOURS = 5;    // one play session = 5 hours, one session per day (shared by both of you)
+export const SESSION_MINUTES = SESSION_HOURS * 60;
 export const MIN_PASSWORD = 10;
 
 export const timezone = () => process.env.APP_TIMEZONE || 'Asia/Kolkata';

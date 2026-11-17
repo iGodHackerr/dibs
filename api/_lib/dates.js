@@ -27,6 +27,30 @@ export const monthOf = (s) => s.slice(0, 7);
 export const todayIn = (tz) =>
   new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 
+/** Date + wall-clock time right now in the given IANA timezone: { date: 'YYYY-MM-DD', secs: seconds since local midnight }. */
+export function nowIn(tz) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23',
+  }).formatToParts(new Date());
+  const g = (t) => parts.find((p) => p.type === t).value;
+  return { date: `${g('year')}-${g('month')}-${g('day')}`, secs: Number(g('hour')) * 3600 + Number(g('minute')) * 60 + Number(g('second')) };
+}
+
+/** Whole days since 1970-01-01 (for comparing moments across days: dayIdx * 1440 + minute-of-day). */
+export const dayIdx = (s) => Math.round(parse(s) / DAY);
+
+/** "15:00" <-> minutes since midnight */
+export const parseHM = (s) => {
+  const m = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(String(s));
+  return m ? Number(m[1]) * 60 + Number(m[2]) : null;
+};
+export const toHM = (min) => `${String(Math.floor(min / 60) % 24).padStart(2, '0')}:${String(min % 60).padStart(2, '0')}`;
+/** minutes since midnight -> "3:05 PM" */
+export const clock12 = (min) => {
+  const h = Math.floor(min / 60) % 24;
+  return `${h % 12 || 12}:${String(min % 60).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`;
+};
+
 /** "Sat 28 Nov" */
 export const nice = (s) => {
   const [, m, d] = s.split('-').map(Number);
